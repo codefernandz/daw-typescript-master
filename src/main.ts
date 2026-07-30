@@ -4,8 +4,9 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { setupCounter } from './counter.ts'
 
-// import "./fundamentals/index";
-import "./DOM/index";
+// import "./fundamentals";
+// import "./dom";
+import './date'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="center">
