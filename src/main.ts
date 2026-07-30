@@ -1,6 +1,3 @@
 import './style.css'
-import './date'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-
-`;
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = ``;
