@@ -3,17 +3,22 @@ import { separator } from "../utils/methods";
 // ================================================================================
 // ⚙️ Inicialización: Guía Completa de Eventos en el DOM
 // ================================================================================
-// [1] Preparación del flujo visual en la terminal de ejecución
-// [2] Mensaje inicial del sistema para verificar la compilación estática exitosa
-// [3] Demostración práctica de 'addEventListener', tipado de eventos y cleanup
+// Preparación del flujo visual en la terminal de ejecución y verificación de
+// la compilación estática mediante la captura de eventos, tipado de 'Event' y
+// patrones de limpieza (cleanup).
 // ================================================================================
+
+// [1] Separador visual en la terminal de ejecución
 separator("Manejo e Intercepción de Eventos en el DOM");
 
 // ================================================================================
 // 🛠️ 1. Creación e Inyección del Contenedor Principal
 // ================================================================================
-// Creamos un contenedor 'div' donde alojaremos los elementos interactivos
-// para mantener el árbol del DOM organizado.
+// Creación de un contenedor 'div' central para mantener organizados los
+// elementos interactivos dentro del árbol del DOM.
+// ================================================================================
+
+// [1] Instanciación del contenedor e inserción en 'document.body'
 const container: HTMLDivElement = document.createElement("div");
 container.id = "event-container";
 container.className = "event-container-class";
@@ -22,9 +27,11 @@ document.body.appendChild(container);
 // ================================================================================
 // 🖱️ 2. Eventos de Clic del Ratón (MouseEvent)
 // ================================================================================
-// Los eventos 'click' son disparados cuando el usuario presiona y suelta un botón sobre un elemento.
+// Los eventos 'click' se disparan al presionar y soltar un botón del ratón
+// sobre la superficie de un elemento.
+// ================================================================================
 
-// [1] Instanciación del botón de prueba
+// [1] Instanciación y montaje del botón de prueba
 const buttonElement: HTMLButtonElement = document.createElement("button");
 buttonElement.id = "event-button";
 buttonElement.textContent = "Click Me";
@@ -32,25 +39,25 @@ container.appendChild(buttonElement);
 
 /**
  * Manejador para clics de ratón.
- * @param event Objeto 'MouseEvent' que contiene coordenadas (clientX, clientY), botón presionado, etc.
+ * @param event Objeto 'MouseEvent' con información del evento (coordenadas, target, etc.).
  */
 const handleClick = (event: MouseEvent): void => {
-  // 📋 Referencia técnica:
-  // - event.type: Devuelve el nombre del evento ("click").
-  // - event.target: Elemento del DOM que disparó el evento.
+  // [1] Extracción de metadatos del evento
   console.log("✅ [EVENT - Click] Detalle del evento:", event);
   console.log(`📡 Tipo de evento: ${event.type} | Target ID: ${(event.target as HTMLElement).id}`);
   alert("¡Botón clickeado!");
 };
 
-// Vinculación del manejador mediante addEventListener(nombreEvento, callback)
+// [2] Vinculación del manejador mediante 'addEventListener'
 buttonElement.addEventListener("click", handleClick);
 
 // ================================================================================
 // ⌨️ 3. Eventos de Teclado en Entradas (KeyboardEvent - Input)
 // ================================================================================
-// Los eventos 'keydown' se activan en el momento exacto en que una tecla es presionada.
+// El evento 'keydown' se activa en el instante en que una tecla es presionada.
+// ================================================================================
 
+// [1] Instanciación y montaje del campo de texto
 const inputElement: HTMLInputElement = document.createElement("input");
 inputElement.type = "text";
 inputElement.placeholder = "Escribe algo...";
@@ -58,22 +65,23 @@ container.appendChild(inputElement);
 
 /**
  * Manejador para captura de teclado en campos de texto.
- * @param event Objeto 'KeyboardEvent' que expone información de la tecla física y modificadores (Shift, Ctrl, etc.).
+ * @param event Objeto 'KeyboardEvent' que expone el valor y la clave física de la tecla.
  */
 const handleKeyPress = (event: KeyboardEvent): void => {
-  // 📋 Referencia técnica:
-  // - event.key: Retorna el valor imprimible de la tecla (ej: "a", "Enter", "Backspace").
-  // - event.code: Retorna la clave física de la tecla en el teclado (ej: "KeyA", "Digit1").
+  // [1] Trazabilidad de teclas y códigos físicos
   console.log(`✅ [EVENT - Keydown] Tecla: "${event.key}" | Código Físico: ${event.code}`);
 };
 
+// [2] Registro del escuchador para presiones de tecla
 inputElement.addEventListener("keydown", handleKeyPress);
 
 // ================================================================================
 // 🔀 4. Eventos de Cambio en Formulario (Event - Select)
 // ================================================================================
-// El evento 'change' se dispara cuando el usuario confirma una selección o modifica el valor de un campo.
+// El evento 'change' se dispara al confirmar una selección o modificar un valor.
+// ================================================================================
 
+// [1] Instanciación de elementos del selector
 const selectElement: HTMLSelectElement = document.createElement("select");
 
 const option1: HTMLOptionElement = document.createElement("option");
@@ -84,6 +92,7 @@ const option2: HTMLOptionElement = document.createElement("option");
 option2.value = "option2";
 option2.textContent = "Opción 2";
 
+// [2] Estructuración del elemento select y montaje en el contenedor
 selectElement.appendChild(option1);
 selectElement.appendChild(option2);
 container.appendChild(selectElement);
@@ -93,20 +102,22 @@ container.appendChild(selectElement);
  * @param event Objeto 'Event' genérico del DOM.
  */
 const handleSelectChange = (event: Event): void => {
-  // 📋 Referencia técnica de TypeScript:
-  // 'event.target' se tipa de forma genérica como EventTarget | null.
-  // Es necesario usar una aserción de tipo ('as HTMLSelectElement') para acceder a la propiedad '.value' con seguridad.
+  // [1] Aserción de tipo en TypeScript ('as HTMLSelectElement') para acceder a '.value'
   const target = event.target as HTMLSelectElement;
   console.log("✅ [EVENT - Change] Opción seleccionada:", target.value);
 };
 
+// [3] Registro del escuchador de cambio
 selectElement.addEventListener("change", handleSelectChange);
 
 // ================================================================================
 // 🎨 5. Eventos de Entrada/Salida del Puntero (MouseOver / MouseOut)
 // ================================================================================
-// Permiten detectar cuándo el cursor entra ('mouseover') o sale ('mouseout') de la superficie de un elemento.
+// Detección de la entrada ('mouseover') y salida ('mouseout') del cursor sobre
+// la superficie de un elemento.
+// ================================================================================
 
+// [1] Instanciación y estilizado dinámico del área interactiva
 const hoverElement: HTMLDivElement = document.createElement("div");
 hoverElement.textContent = "Pasa el mouse por aquí";
 hoverElement.style.width = "200px";
@@ -116,36 +127,38 @@ hoverElement.style.display = "flex";
 hoverElement.style.alignItems = "center";
 hoverElement.style.justifyContent = "center";
 hoverElement.style.marginTop = "10px";
-hoverElement.style.transition = "background-color 0.3s ease"; // Transición suave de color de fondo
+hoverElement.style.transition = "background-color 0.3s ease";
 
 container.appendChild(hoverElement);
 
 /**
- * Manejador al ingresar con el ratón sobre el área.
+ * Manejador al ingresar el cursor en el área.
  */
 const handleMouseOver = (event: MouseEvent): void => {
   console.log("✅ [EVENT - MouseOver] Puntero ingresó al área del elemento:", event);
-  hoverElement.style.backgroundColor = "#d0ffd0"; // Cambia a verde claro
+  hoverElement.style.backgroundColor = "#d0ffd0";
 };
 
 /**
- * Manejador al salir con el ratón del área.
+ * Manejador al salir el cursor del área.
  */
 const handleMouseOut = (event: MouseEvent): void => {
   console.log("✅ [EVENT - MouseOut] Puntero abandonó el área del elemento:", event);
-  hoverElement.style.backgroundColor = "#f0f0f0"; // Restaura el gris original
+  hoverElement.style.backgroundColor = "#f0f0f0";
 };
 
+// [2] Registro de escuchadores del puntero
 hoverElement.addEventListener("mouseover", handleMouseOver);
 hoverElement.addEventListener("mouseout", handleMouseOut);
 
 // ================================================================================
 // 🚨 6. Escuchadores Globales y Desuscripción (Cleanup / Anti-Memory Leak)
 // ================================================================================
-// Escuchar eventos en objetos globales como 'document' o 'window' requiere ser removido ('removeEventListener')
-// una vez que la acción finaliza para no consumir recursos innecesarios de memoria.
+// Remoción explícita mediante 'removeEventListener' en objetos globales para
+// evitar fugas de memoria y procesamiento innecesario.
+// ================================================================================
 
-// [1] Creación y estilizado de un cuadro modal centrado en pantalla
+// [1] Creación y configuración de estilos para el cuadro modal emergente
 const modalElement: HTMLDivElement = document.createElement("div");
 modalElement.id = "modal";
 modalElement.style.position = "fixed";
@@ -164,19 +177,18 @@ document.body.appendChild(modalElement);
  * Manejador global para detectar la tecla de escape (Esc) y cerrar el modal.
  */
 const handleEscKeyPress = (event: KeyboardEvent): void => {
+  // [1] Verificación de la tecla presionada
   if (event.key === "Escape") {
     console.log("✅ [EVENT - Global Keydown] Tecla Esc detectada. Ocultando modal.");
 
-    // Ocultamos el elemento modal
+    // [2] Ocultar el elemento visual
     modalElement.style.display = "none";
 
-    // 📋 Regla de buenas prácticas (Cleanup):
-    // Desvinculamos el manejador mediante 'removeEventListener'. Esto libera memoria y evita
-    // que la función siga escuchando teclas en segundo plano cuando el modal ya no es visible.
+    // [3] Desvinculación de seguridad (Cleanup) para evitar fugas de memoria
     document.removeEventListener("keydown", handleEscKeyPress);
     console.log("🔌 [CLEANUP] Escuchador de teclado en 'document' removido exitosamente.");
   }
 };
 
-// Vinculamos el evento de teclado directamente al documento global
+// [2] Registro del evento global en el documento
 document.addEventListener("keydown", handleEscKeyPress);

@@ -3,10 +3,12 @@ import { separator } from "../utils/methods";
 // ================================================================================
 // ⚙️ Inicialización: Plantillas Dinámicas Seguras en el DOM
 // ================================================================================
-// [1] Preparación del flujo visual en la terminal de ejecución
-// [2] Mensaje inicial del sistema para verificar la compilación estática exitosa
-// [3] Demostración práctica de interpolación de datos y sanitización contra XSS
+// Preparación del flujo visual en la terminal de ejecución y verificación de
+// la compilación estática mediante la generación e inyección de plantillas HTML
+// dinámicas sanitizadas contra ataques XSS.
 // ================================================================================
+
+// [1] Separador visual en la terminal de ejecución
 separator("Generación e Inyección de Plantillas Dinámicas (DOM Templates)");
 
 /**
@@ -22,18 +24,16 @@ interface UserProfile {
 // ================================================================================
 // 🛡️ 1. Función Utilitaria: Escape de Caracteres HTML (Anti-XSS)
 // ================================================================================
-/**
- * Sanitiza cadenas de texto para prevenir ataques de inyección de código (Cross-Site Scripting / XSS).
- * 
- * 📌 ¿Por qué es necesaria?
- * Al utilizar la propiedad 'innerHTML', el navegador interpreta cualquier etiqueta HTML o script 
- * inyectado dentro de los datos dinámicos. Esta función reemplaza los caracteres reservados del motor
- * de renderizado HTML por sus equivalentes en Entidades HTML seguras (HTML Entities).
- * 
- * @param str Cadena de texto potencialmente insegura recibida de una fuente externa o variable.
- * @returns Cadena escapada donde los símbolos '<', '>', '&', '"' y '\'' son inofensivos para la vista.
- */
+// Sanitiza cadenas de texto para prevenir ataques de inyección de código (Cross-Site Scripting / XSS).
+//
+// 📌 ¿Por qué es necesaria?
+// Al utilizar la propiedad 'innerHTML', el navegador interpreta cualquier etiqueta HTML o script
+// inyectado dentro de los datos dinámicos. Esta función reemplaza los caracteres reservados por sus
+// equivalentes en Entidades HTML seguras.
+// ================================================================================
+
 function sanitizeHTML(str: string): string {
+  // [1] Reemplazo de caracteres reservados por entidades HTML seguras
   return str
     .replace(/&/g, "&amp;")   // & -> &amp; (Evita el inicio imprevisto de entidades)
     .replace(/</g, "&lt;")    // < -> &lt;  (Evita la apertura de etiquetas <script> o HTML)
@@ -45,8 +45,10 @@ function sanitizeHTML(str: string): string {
 // ================================================================================
 // 📝 2. Definición de Datos de Entrada (Inmutables)
 // ================================================================================
-// Objeto con la información del usuario tipado con la interfaz 'UserProfile'.
-// Se declara con 'const' garantizando inmutabilidad a nivel de referencia.
+// Objeto inmutable con la información del usuario tipado con la interfaz 'UserProfile'.
+// ================================================================================
+
+// [1] Definición del objeto de datos del usuario
 const currentUser: UserProfile = {
   firstName: "John",
   lastName: "Doe",
@@ -56,37 +58,30 @@ const currentUser: UserProfile = {
 // ================================================================================
 // 🛠️ 3. Construcción del Contenedor e Inyección de Plantilla
 // ================================================================================
+// Instanciación del contenedor raíz, construcción de la plantilla mediante
+// Template Literals interpolados de forma segura e inyección final en el DOM.
+// ================================================================================
 
-// Instanciación del elemento contenedor raíz mediante la API 'createElement' del DOM.
-// Se tipa explícitamente como HTMLDivElement para habilitar el autocompletado y validación de TypeScript.
+// [1] Instanciación del elemento contenedor raíz mediante la API 'createElement'
 const boxContainer: HTMLDivElement = document.createElement("div");
 
-// Asignación de atributos de identificación CSS y manipulación
-boxContainer.id = "box-container";             // ID único en el árbol del DOM
-boxContainer.className = "box-container-class"; // Clase(s) para la capa de estilos CSS
+// [2] Asignación de atributos de identificación CSS y manipulación
+boxContainer.id = "box-container";
+boxContainer.className = "box-container-class";
 
-/**
- * Plantilla HTML multilínea (Template String / Literals).
- * Permite interpolar variables directamente mediante la sintaxis `${}`.
- * 
- * 💡 Buenas prácticas: Cada variable dinámica pasa por la función 'sanitizeHTML()' 
- * antes de ser renderizada en el markup final.
- */
+// [3] Definición de la plantilla HTML multilínea con interpolación sanitizada
 const domTemplate: string = `
   <h1>Dynamic Content</h1>
   <p>This content is generated dynamically using a template string in TypeScript.</p>
   <p>My name is "${sanitizeHTML(currentUser.firstName)} ${sanitizeHTML(currentUser.lastName)}" and I work as a "${sanitizeHTML(currentUser.jobTitle)}".</p>
 `;
 
-// [1] Inyección del markup generado en la propiedad 'innerHTML' del contenedor
+// [4] Inyección del markup generado en la propiedad 'innerHTML' del contenedor
 boxContainer.innerHTML = domTemplate;
 
-// [2] Renderizado final: Inserción del contenedor en el árbol del DOM dentro de 'document.body'
-// Se utiliza '.append()' que es un método moderno que permite añadir nodos o cadenas directamente.
+// [5] Renderizado final: Inserción del contenedor dentro de 'document.body'
 document.body.append(boxContainer);
 
-// ================================================================================
-// 📊 Logs de Verificación y Trazabilidad
-// ================================================================================
+// [6] Logs de verificación y trazabilidad en consola
 console.log("✅ [DOM] Contenedor de plantilla dinámica insertado con éxito:", boxContainer);
 console.log(`✅ [DATA] Datos renderizados: ${currentUser.firstName} ${currentUser.lastName} (${currentUser.jobTitle})`);
