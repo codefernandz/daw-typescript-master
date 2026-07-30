@@ -6,7 +6,8 @@ import { setupCounter } from './counter.ts'
 
 // import "./fundamentals";
 // import "./dom";
-import './date'
+// import './date'
+import './crud'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 <section id="center">
