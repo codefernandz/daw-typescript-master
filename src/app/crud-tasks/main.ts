@@ -1,5 +1,5 @@
 import "./style.css";
-import { separator } from "../utils/methods";
+import { separator } from "../../utils/methods";
 import { buildLayout, renderTasks } from "./components/taskUI";
 import { sortTasks } from "./state/taskState";
 
