@@ -1,0 +1,1 @@
+console.log("Asynchrony module loaded successfully.");
