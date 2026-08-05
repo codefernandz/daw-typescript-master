@@ -1,5 +1,5 @@
 import './style.css'
-import './es6+/asynchrony';
+import './typescript'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <h1>Hello, World!</h1>

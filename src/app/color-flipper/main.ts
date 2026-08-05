@@ -1,5 +1,5 @@
 import "./style.css";
-import { separator } from "../../utils/methods";
+import { separator } from "../../typescript/utils/methods";
 import { buildLayout, renderPalette } from "./components/colorFlipperUI";
 
 // ================================================================================

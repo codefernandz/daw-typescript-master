@@ -1,0 +1,93 @@
+/* ================================================================================
+   ⚙️ Configuración y Variables de Diseño del Componente
+   ================================================================================ */
+
+:root {
+  --our-button-bg-default: #ffd17b;
+  --our-button-text-color: #1a1a1a;
+  --our-button-border-radius: 8px;
+  --our-button-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --our-button-focus-ring: #0066ff;
+}
+
+/* ================================================================================
+   🔘 Estilos Base del Botón (.ourButton)
+   ================================================================================ */
+
+.ourButton {
+  /* Resets y tipografía */
+  appearance: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--our-button-text-color);
+
+  /* Geometría y espaciado */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--our-button-border-radius);
+  border: 1px solid transparent;
+  background-color: var(--our-button-bg-default);
+
+  /* Interacción y animación */
+  cursor: pointer;
+  user-select: none;
+  transition: var(--our-button-transition);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ================================================================================
+   🎯 Estados Interactivos (Hover, Active, Focus, Disabled)
+   ================================================================================ */
+
+/* Estado al pasar el cursor */
+.ourButton:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estado de presión */
+.ourButton:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Estado de foco para accesibilidad por teclado */
+.ourButton:focus-visible {
+  outline: 2px solid var(--our-button-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Estado deshabilitado */
+.ourButton:disabled,
+.ourButton[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: grayscale(0.4);
+}
+
+/* ================================================================================
+   ✨ Variante / Modificador (.highlight)
+   ================================================================================ */
+
+.ourButton.highlight {
+  border-radius: 4px;
+  border: 2px solid #1a1a1a;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ourButton.highlight:hover {
+  background-color: #1a1a1a !important;
+  color: #ffffff;
+  border-color: #1a1a1a;
+}
