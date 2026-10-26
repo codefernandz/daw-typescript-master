@@ -1,0 +1,165 @@
+/* ================================================================================
+   🎨 Configuración Global y Reset
+   ================================================================================ */
+:root {
+  --bg-primary: #f4f6f8;
+  --bg-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-completed: #94a3b8;
+  --accent-color: #6842c2;
+  --accent-hover: #5432a8;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ================================================================================
+   📦 Contenedor Principal (CRUD Card)
+   ================================================================================ */
+#crud-container {
+  background-color: var(--bg-card);
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================================================================================
+   📋 Lista de Tareas (ul y li)
+   ================================================================================ */
+#list-elements {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+#list-elements li {
+  padding: 12px 16px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 15px;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  position: relative;
+}
+
+#list-elements li:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Estado completado */
+#list-elements li.completed {
+  color: var(--text-completed);
+  text-decoration: line-through;
+  opacity: 0.7;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#list-elements li.completed::before {
+  content: "✓";
+  margin-right: 8px;
+  color: #10b981;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* ================================================================================
+   🛠️ Formulario y Grupo de Entrada
+   ================================================================================ */
+#new-item-group {
+  display: flex;
+  gap: 10px;
+}
+
+#new-item-group input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+#new-item-group input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(104, 66, 194, 0.15);
+}
+
+#new-item-group button {
+  padding: 10px 18px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#new-item-group button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ================================================================================
+   🎨 Botón de Conmutador de Tema (Theme Switcher)
+   ================================================================================ */
+#theme-switcher-btn {
+  align-self: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 10px;
+}
+
+#theme-switcher-btn:hover {
+  background-color: var(--accent-hover);
+}
